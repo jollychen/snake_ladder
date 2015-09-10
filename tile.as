@@ -13,7 +13,7 @@
 			this.x = xPos;
 			this.y = yPos;
 			this.tileName = tileNumber;
-			
+			main.gameBoardTilesVector.push(this);
 			this.addEventListener(MouseEvent.CLICK, showtilenumber);
 			
 		}
