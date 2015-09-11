@@ -17,9 +17,12 @@
 		
 		public var rollingStatus:Boolean;
 		
-		public function player(xPosition, yPosition, pName, status) {
+		public var documentClass;
+		
+		public function player(xPosition, yPosition, pName, status, docClass) {
 		// constructor code
 		//position the player on the stage
+			this.documentClass = docClass;
 			this.x = xPosition;
 			this.y = yPosition;
 			this.playerName = pName;
@@ -36,8 +39,12 @@
 		
 		public function movePosition (num) {
 			this.position += num;
-			if(! main.checkWin(this)) {
+			if(! documentClass.checkWin(this)) {
 				updatePosition(main.gameBoardTilesVector[this.position].x, main.gameBoardTilesVector[this.position].y);
+			} else {
+				this.position = 99;
+				updatePosition(main.gameBoardTilesVector[this.position].x, main.gameBoardTilesVector[this.position].y);
+				documentClass.createWinnerBulletin(this.playerName);
 			}
 		}
 		

@@ -1,9 +1,5 @@
 ﻿package  {
-	
-	/*
-	In this project we will create a grid of tiles.
-	The tiles are drawn from a symbol created on the stage and then saved into the library.
-	*/
+
 	
 	import flash.display.MovieClip;
 	
@@ -20,7 +16,7 @@
 		public static var player1:player;
 		public static var player2:player;
 		
-		//public static var aDiceTile:diceTile;
+		
 		
 		public static var gameBoardTilesVector:Vector.<tile> = new Vector.<tile>();
 		
@@ -31,6 +27,8 @@
 			createPlayer();
 			
 			createDiceTile();
+			
+			
 			
 			
 		}
@@ -102,23 +100,15 @@
 			aDiceTile.gotoAndStop(1);
 			stage.addChild(aDiceTile);
 			
-			
-			/*xPos = gameBoardStartX + gameBoardTilesWide*tileWidth + gameBoardStartX + diceTileWidth/2;
-			yPos = gameBoardStartY + 8*tileWidth;
-			
-			var twoDiceTile = new diceTile(xPos, yPos, "ImDice2", player2);
-			twoDiceTile.gotoAndStop(1);
-			stage.addChild(twoDiceTile);*/
-			
 		}
 		
 		
 		public function createPlayer() {
-			player1 = new player(gameBoardTilesVector[0].x, gameBoardTilesVector[0].y, "player1", true);
+			player1 = new player(gameBoardTilesVector[0].x, gameBoardTilesVector[0].y, "Player1", true, this);
 			player1.gotoAndStop(1);
 			stage.addChild(player1);
 			
-			player2 = new player(gameBoardTilesVector[0].x, gameBoardTilesVector[0].y, "player2", false);
+			player2 = new player(gameBoardTilesVector[0].x, gameBoardTilesVector[0].y, "Player2", false, this);
 			player2.gotoAndStop(2);
 			stage.addChild(player2);
 		}
@@ -138,14 +128,18 @@
 			}
 		}
 		
-		public static function checkWin(player):Boolean {
-			if (player.position >= 100) {
+		public function checkWin(player):Boolean {
+			if (player.position >= 99) {
 				var winner = player.getName();
-				//var winnerText = new TextField();
-				trace(winner + " is the winner!");
+				//createWinnerBulletin(winner);
 				return true;
 			}
 			return false;
+		}
+		
+		public function createWinnerBulletin(winner) {
+			var bulletin:winnerBulletin = new winnerBulletin(winner);
+			stage.addChild(bulletin);
 		}
 		
 
