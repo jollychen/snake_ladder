@@ -36,7 +36,9 @@
 		
 		public function movePlayer(e:MouseEvent) {
 			this._player.position += getDicePoints();
-			updatePosition(main.gameBoardTilesVector[this._player.position].x, main.gameBoardTilesVector[this._player.position].y);
+			if(! main.checkWin(this._player)) {
+				updatePosition(main.gameBoardTilesVector[this._player.position].x, main.gameBoardTilesVector[this._player.position].y);
+			}
 		}
 		
 		public function updatePosition(xPos, yPos) {

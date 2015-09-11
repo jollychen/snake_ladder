@@ -110,23 +110,28 @@
 			twoDiceTile.gotoAndStop(1);
 			stage.addChild(twoDiceTile);
 			
-			
-			
-			
-			
 		}
 		
 		
 		public function createPlayer() {
-			player1 = new player(gameBoardTilesVector[0].x, gameBoardTilesVector[0].y);
+			player1 = new player(gameBoardTilesVector[0].x, gameBoardTilesVector[0].y, "player1");
 			player1.gotoAndStop(1);
 			stage.addChild(player1);
 			
-			player2 = new player(gameBoardTilesVector[0].x, gameBoardTilesVector[0].y);
+			player2 = new player(gameBoardTilesVector[0].x, gameBoardTilesVector[0].y, "player2");
 			player2.gotoAndStop(2);
 			stage.addChild(player2);
 		}
 		
+		public static function checkWin(player):Boolean {
+			if (player.position >= 100) {
+				var winner = player.getName();
+				//var winnerText = new TextField();
+				trace(winner + " is the winner!");
+				return true;
+			}
+			return false;
+		}
 		
 
 	}
