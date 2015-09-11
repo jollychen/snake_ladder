@@ -6,9 +6,17 @@
 	public class tile extends MovieClip{
 		public var tileName;
 		
+		private var cross:Cross = new Cross();
+		private var node:Node = new Node();
 		
 		public function tile(xPos, yPos, tileNumber) {
 			// constructor code
+			
+			this.cross.visible = false;
+			this.node.visible = false;
+			
+			this.addChild(this.node);
+			this.addChild(this.cross);
 			
 			this.x = xPos;
 			this.y = yPos;
@@ -23,6 +31,14 @@
 			
 			trace(this.tileName);
 		
+		}
+		
+		public function showCross() {
+			this.cross.visible = true;
+		}
+		
+		public function showNode() {
+			this.node.visible = true;
 		}
 
 	}

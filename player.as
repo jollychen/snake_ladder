@@ -52,6 +52,12 @@
 		public function updatePosition(xPos, yPos) {
 			this.x = xPos;
 			this.y = yPos;
+			if (this.playerName == "Player1") {
+				main.gameBoardTilesVector[this.position].showNode();
+			}
+			else if (this.playerName == "Player2") {
+				main.gameBoardTilesVector[this.position].showCross();
+			}
 			if (checkIsLadderAndSnake(this.position)) {
 				updatePosition(main.gameBoardTilesVector[this.position].x, main.gameBoardTilesVector[this.position].y);
 			}
