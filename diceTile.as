@@ -10,17 +10,19 @@
 		
 		public var _player;
 		//private var dicePointField:TextField;
+		public var documentClass;
 		
-		public function diceTile(xPos, yPos, tileName, player) {
+		public function diceTile(xPos, yPos, tileName, docClass) {
 			// constructor code
 			
 			this.x = xPos;
 			this.y = yPos;
 			this.diceTileName = tileName;
-			this._player = player;
+			//this._player = player;
+			this.documentClass = docClass
 			
 			this.addEventListener(MouseEvent.MOUSE_DOWN, rollingDice);
-			this.addEventListener(MouseEvent.MOUSE_UP, movePlayer);
+			//this.addEventListener(MouseEvent.MOUSE_UP, movePlayer);
 			
 		}
 		
@@ -28,13 +30,14 @@
 			var num = Math.ceil(Math.random()*6);
 			this.dicePoints = num;
 			this.gotoAndStop(num);
+			this.documentClass.movePlayer(num);
 		}
 		
 		public function getDicePoints():int {
 			return this.dicePoints;
 		}
 		
-		public function movePlayer(e:MouseEvent) {
+		/*public function movePlayer(e:MouseEvent) {
 			this._player.position += getDicePoints();
 			if(! main.checkWin(this._player)) {
 				updatePosition(main.gameBoardTilesVector[this._player.position].x, main.gameBoardTilesVector[this._player.position].y);
@@ -44,7 +47,7 @@
 		public function updatePosition(xPos, yPos) {
 			this._player.x = xPos;
 			this._player.y = yPos;
-		}
+		}*/
 		
 	}
 	

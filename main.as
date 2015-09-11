@@ -98,29 +98,44 @@
 			var xPos = gameBoardStartX + gameBoardTilesWide*tileWidth + gameBoardStartX + diceTileWidth/2;
 			var yPos = gameBoardStartY + 4*tileWidth;
 			
-			var aDiceTile = new diceTile(xPos, yPos, "ImDice1", player1);
+			var aDiceTile = new diceTile(xPos, yPos, "ImDice1", this);
 			aDiceTile.gotoAndStop(1);
 			stage.addChild(aDiceTile);
 			
 			
-			xPos = gameBoardStartX + gameBoardTilesWide*tileWidth + gameBoardStartX + diceTileWidth/2;
+			/*xPos = gameBoardStartX + gameBoardTilesWide*tileWidth + gameBoardStartX + diceTileWidth/2;
 			yPos = gameBoardStartY + 8*tileWidth;
 			
 			var twoDiceTile = new diceTile(xPos, yPos, "ImDice2", player2);
 			twoDiceTile.gotoAndStop(1);
-			stage.addChild(twoDiceTile);
+			stage.addChild(twoDiceTile);*/
 			
 		}
 		
 		
 		public function createPlayer() {
-			player1 = new player(gameBoardTilesVector[0].x, gameBoardTilesVector[0].y, "player1");
+			player1 = new player(gameBoardTilesVector[0].x, gameBoardTilesVector[0].y, "player1", true);
 			player1.gotoAndStop(1);
 			stage.addChild(player1);
 			
-			player2 = new player(gameBoardTilesVector[0].x, gameBoardTilesVector[0].y, "player2");
+			player2 = new player(gameBoardTilesVector[0].x, gameBoardTilesVector[0].y, "player2", false);
 			player2.gotoAndStop(2);
 			stage.addChild(player2);
+		}
+		
+		public function movePlayer(num) {
+			if (player1.rollingStatus) {
+				player1.movePosition(num);
+				player1.setRollingStatus(false);
+				player2.setRollingStatus(true);
+			}
+			else{
+				if(player2.rollingStatus) {
+					player2.movePosition(num);
+					player2.setRollingStatus(false);
+					player1.setRollingStatus(true);
+				}
+			}
 		}
 		
 		public static function checkWin(player):Boolean {
