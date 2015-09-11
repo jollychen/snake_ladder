@@ -2,20 +2,59 @@
 {
 	
 	import flash.display.*;
+	import flash.events.MouseEvent;
+	import flash.sampler.Sample;
 	
 	public class player extends MovieClip
 	{
 		
-		public var playerWidth:Number = 20
-		public var playerheight:Number = 20
+		public var playerWidth:Number;
+		public var playerheight:Number;
 		
-		public function player(xPosition, yPosition)
-		{
+		public var position:int = 0;
+		
+		public var playerName:String;
+		
+		public var rollingStatus:Boolean;
+		
+		public var documentClass;
+		
+		public function player(xPosition, yPosition, pName, status, docClass) {
 		// constructor code
 		//position the player on the stage
-			this.x = xPostion;
-			this.y = yPositon;
+			this.documentClass = docClass;
+			this.x = xPosition;
+			this.y = yPosition;
+			this.playerName = pName;
+			this.rollingStatus = status;
 		}
+		
+		public function getName ():String {
+			return this.playerName;
+		}
+		
+		public function setRollingStatus (status:Boolean):void {
+			this.rollingStatus = status;
+		}
+		
+		public function movePosition (num) {
+			this.position += num;
+			if(! documentClass.checkWin(this)) {
+				updatePosition(main.gameBoardTilesVector[this.position].x, main.gameBoardTilesVector[this.position].y);
+			} else {
+				this.position = 99;
+				updatePosition(main.gameBoardTilesVector[this.position].x, main.gameBoardTilesVector[this.position].y);
+				documentClass.createWinnerBulletin(this.playerName);
+			}
+		}
+		
+		public function updatePosition(xPos, yPos) {
+			this.x = xPos;
+			this.y = yPos;
+		}
+		
+		
+		
 
 	}
 
