@@ -4,6 +4,7 @@
 	import flash.display.MovieClip;
 	
 	import flash.text.*;
+	import flash.utils.Dictionary;
 	
 	public class main extends MovieClip {
 
@@ -16,22 +17,27 @@
 		public static var player1:player;
 		public static var player2:player;
 		
-		
-		
 		public static var gameBoardTilesVector:Vector.<tile> = new Vector.<tile>();
+		
+		public static var ladderAndSnakeDict:Dictionary = new Dictionary();
 		
 		public function main() {
 			// constructor code
 			createGameBoard();
-			
+			createLadders();
+			createSnakes();
 			createPlayer();
 			
 			createDiceTile();
+			
+
 			
 			
 			
 			
 		}
+		
+		//  ================================  Create Game Board  ===========================
 		
 		public function createGameBoard ()
 		{
@@ -89,6 +95,9 @@
 		}
 		
 		
+		// ===============================  Create Dice  =================================
+		
+		
 		public function createDiceTile() {
 			
 			var diceTileWidth = 120;
@@ -102,6 +111,8 @@
 			
 		}
 		
+		
+		// =============================== player related method  ==================================
 		
 		public function createPlayer() {
 			player1 = new player(gameBoardTilesVector[0].x, gameBoardTilesVector[0].y, "Player1", true, this);
@@ -137,9 +148,49 @@
 			return false;
 		}
 		
+		
+		//  ========================  Create Winner Bulletin  ======================
+		
 		public function createWinnerBulletin(winner) {
 			var bulletin:winnerBulletin = new winnerBulletin(winner);
 			stage.addChild(bulletin);
+		}
+		
+		
+		//  ========================  Create Ladders and Snakes  =============================
+		
+		public function createLadders() {
+			var  ladder1:ladderAndSnake = new ladderAndSnake(280, 550);
+			ladder1.gotoAndStop(1);
+			ladderAndSnakeDict[22] = 56;
+			stage.addChild(ladder1)
+			
+			var ladder2:ladderAndSnake = new ladderAndSnake(470, 650);
+			ladder2.gotoAndStop(2);
+			ladderAndSnakeDict[12] = 34;
+			stage.addChild(ladder2);
+			
+			var ladder3:ladderAndSnake = new ladderAndSnake(600, 220);
+			ladder3.gotoAndStop(3);
+			ladderAndSnakeDict[67] = 93;
+			stage.addChild(ladder3);
+		}
+		
+		public function createSnakes() {
+			var snake1:ladderAndSnake = new ladderAndSnake(540, 370);
+			ladderAndSnakeDict[84]=32;
+			snake1.gotoAndStop(6);
+			stage.addChild(snake1);
+			
+			var snake2:ladderAndSnake = new ladderAndSnake(255, 220);
+			ladderAndSnakeDict[96]=77;
+			snake2.gotoAndStop(7);
+			stage.addChild(snake2);
+			
+			var snake3:ladderAndSnake = new ladderAndSnake(300, 680);
+			ladderAndSnakeDict[41]=4;
+			snake3.gotoAndStop(8);
+			stage.addChild(snake3);
 		}
 		
 

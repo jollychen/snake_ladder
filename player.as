@@ -4,6 +4,7 @@
 	import flash.display.*;
 	import flash.events.MouseEvent;
 	import flash.sampler.Sample;
+	import flash.utils.*;
 	
 	public class player extends MovieClip
 	{
@@ -51,6 +52,17 @@
 		public function updatePosition(xPos, yPos) {
 			this.x = xPos;
 			this.y = yPos;
+			if (checkIsLadderAndSnake(this.position)) {
+				updatePosition(main.gameBoardTilesVector[this.position].x, main.gameBoardTilesVector[this.position].y);
+			}
+		}
+		
+		public function checkIsLadderAndSnake(position):Boolean {
+			if (main.ladderAndSnakeDict[position]) {
+				this.position = main.ladderAndSnakeDict[position];
+				return true
+			}
+			return false
 		}
 		
 		
