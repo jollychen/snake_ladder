@@ -34,11 +34,16 @@
 		}
 		
 		public function showCross() {
-			this.cross.visible = true;
+			if (this.node.visible == false) {
+				this.cross.visible = true;
+			}
+			
 		}
 		
 		public function showNode() {
-			this.node.visible = true;
+			if (this.cross.visible == false) {
+				this.node.visible = true;
+			}
 		}
 
 	}
