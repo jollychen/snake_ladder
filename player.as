@@ -46,16 +46,17 @@
 				this.position = 99;
 				updatePosition(main.gameBoardTilesVector[this.position].x, main.gameBoardTilesVector[this.position].y);
 				documentClass.createWinnerBulletin(this.playerName);
+				documentClass.disableMovement();
 			}
 		}
 		
 		public function updatePosition(xPos, yPos) {
 			this.x = xPos;
 			this.y = yPos;
-			if (this.playerName == "Player1") {
+			if (this.playerName == "Nought") {
 				main.gameBoardTilesVector[this.position].showNode();
 			}
-			else if (this.playerName == "Player2") {
+			else if (this.playerName == "Cross") {
 				main.gameBoardTilesVector[this.position].showCross();
 			}
 			if (checkIsLadderAndSnake(this.position)) {

@@ -20,7 +20,7 @@
 
 			this.documentClass = docClass
 			
-			this.addEventListener(MouseEvent.CLICK, rollingDice);
+			
 			
 		}
 		
@@ -33,6 +33,14 @@
 		
 		public function getDicePoints():int {
 			return this.dicePoints;
+		}
+		
+		public function addClickListener() {
+			this.addEventListener(MouseEvent.CLICK, rollingDice);
+		}
+		
+		public function removeClickListener() {
+			this.removeEventListener(MouseEvent.CLICK, rollingDice);
 		}
 		
 	}

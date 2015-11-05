@@ -6,8 +6,8 @@
 	public class tile extends MovieClip{
 		public var tileName;
 		
-		private var cross:Cross = new Cross();
-		private var node:Node = new Node();
+		public var cross:Cross = new Cross();
+		public var node:Node = new Node();
 		
 		public function tile(xPos, yPos, tileNumber) {
 			// constructor code

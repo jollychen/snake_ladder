@@ -13,6 +13,9 @@
 		public var gameBoardTilesWide = 10;
 		public var gameBoardTilesHigh = 10;
 		public var tileWidth = 80;
+		public var target: Boolean = false;
+		public var aDiceTile: diceTile;
+		public var aShowStep: showStep;
 		
 		public static var player1:player;
 		public static var player2:player;
@@ -29,6 +32,7 @@
 			createPlayer();
 			
 			createDiceTile();
+			createShowStep();
 			
 
 			
@@ -105,8 +109,9 @@
 			var xPos = gameBoardStartX + gameBoardTilesWide*tileWidth + gameBoardStartX + diceTileWidth/2;
 			var yPos = gameBoardStartY + 4*tileWidth;
 			
-			var aDiceTile = new diceTile(xPos, yPos, "ImDice1", this);
+			aDiceTile = new diceTile(xPos, yPos, "ImDice1", this);
 			aDiceTile.gotoAndStop(1);
+			aDiceTile.addClickListener();
 			stage.addChild(aDiceTile);
 			
 		}
@@ -115,28 +120,30 @@
 		// =============================== player related method  ==================================
 		
 		public function createPlayer() {
-			player1 = new player(gameBoardTilesVector[0].x, gameBoardTilesVector[0].y, "Player1", true, this);
+			player1 = new player(gameBoardTilesVector[0].x, gameBoardTilesVector[0].y, "Nought", true, this);
 			player1.gotoAndStop(1);
 			stage.addChild(player1);
 			
-			player2 = new player(gameBoardTilesVector[0].x, gameBoardTilesVector[0].y, "Player2", false, this);
+			player2 = new player(gameBoardTilesVector[0].x, gameBoardTilesVector[0].y, "Cross", false, this);
 			player2.gotoAndStop(2);
 			stage.addChild(player2);
 		}
 		
 		public function movePlayer(num) {
-			if (player1.rollingStatus) {
+				if (player1.rollingStatus) {
 				player1.movePosition(num);
 				player1.setRollingStatus(false);
 				player2.setRollingStatus(true);
-			}
-			else{
-				if(player2.rollingStatus) {
-					player2.movePosition(num);
-					player2.setRollingStatus(false);
-					player1.setRollingStatus(true);
+				aShowStep.gotoAndStop(1);
+			    }
+				else{
+					if(player2.rollingStatus) {
+						player2.movePosition(num);
+						player2.setRollingStatus(false);
+						player1.setRollingStatus(true);
+						aShowStep.gotoAndStop(2);
+					}
 				}
-			}
 		}
 		
 		public function checkWin(player):Boolean {
@@ -148,12 +155,26 @@
 			return false;
 		}
 		
+		public function disableMovement() {
+			target = true;
+			aDiceTile.removeClickListener();
+		}
+		
 		
 		//  ========================  Create Winner Bulletin  ======================
 		
 		public function createWinnerBulletin(winner) {
 			var bulletin:winnerBulletin = new winnerBulletin(winner);
 			stage.addChild(bulletin);
+		}
+		
+		
+		// ======================== Create showStep ======================================
+		
+		public function createShowStep() {
+			aShowStep = new showStep();
+			aShowStep.gotoAndStop(3);
+			stage.addChild(aShowStep);
 		}
 		
 		
