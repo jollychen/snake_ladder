@@ -2,6 +2,7 @@
 
 	
 	import flash.display.MovieClip;
+	import flash.events.KeyboardEvent;
 	
 	import flash.text.*;
 	import flash.utils.Dictionary;
@@ -16,6 +17,13 @@
 		public var target: Boolean = false;
 		public var aDiceTile: diceTile;
 		public var aShowStep: showStep;
+		public var bulletin: winnerBulletin;
+		public var ladder1:ladderAndSnake;
+		public var ladder2:ladderAndSnake;
+		public var ladder3:ladderAndSnake;
+		public var snake1:ladderAndSnake;
+		public var snake2:ladderAndSnake;
+		public var snake3:ladderAndSnake;
 		
 		public static var player1:player;
 		public static var player2:player;
@@ -26,19 +34,17 @@
 		
 		public function main() {
 			// constructor code
+			game();			
+			
+		}
+		
+		public function game() {
 			createGameBoard();
 			createLadders();
 			createSnakes();
 			createPlayer();
-			
 			createDiceTile();
 			createShowStep();
-			
-
-			
-			
-			
-			
 		}
 		
 		//  ================================  Create Game Board  ===========================
@@ -111,7 +117,7 @@
 			
 			aDiceTile = new diceTile(xPos, yPos, "ImDice1", this);
 			aDiceTile.gotoAndStop(1);
-			aDiceTile.addClickListener();
+			stage.addEventListener(KeyboardEvent.KEY_DOWN, aDiceTile.rollingDice);
 			stage.addChild(aDiceTile);
 			
 		}
@@ -157,14 +163,39 @@
 		
 		public function disableMovement() {
 			target = true;
-			aDiceTile.removeClickListener();
+			stage.removeEventListener(KeyboardEvent.KEY_DOWN, aDiceTile.rollingDice);
+			stage.addEventListener(KeyboardEvent.KEY_DOWN, cleanGame);
+			//aDiceTile.removeClickListener();
+		}
+		
+		public function cleanGame(e:KeyboardEvent) {
+			for(var i = 0; i <= 99; i++ ) {
+				stage.removeChild(main.gameBoardTilesVector[i]);
+			}
+			main.gameBoardTilesVector = Vector.<tile>([]);
+			
+			stage.removeChild(ladder1);
+			stage.removeChild(ladder2);
+			stage.removeChild(ladder3);
+			stage.removeChild(snake1);			
+			stage.removeChild(snake2);
+			stage.removeChild(snake3);			
+			stage.removeChild(aDiceTile);
+			stage.removeChild(aShowStep);
+			stage.removeChild(bulletin);
+			stage.removeChild(player1);
+			stage.removeChild(player2);
+			//main.gameBoardTilesVector.forEach(removeGameBoard);
+			stage.removeEventListener(KeyboardEvent.KEY_DOWN, cleanGame);
+			game();
+				
 		}
 		
 		
 		//  ========================  Create Winner Bulletin  ======================
 		
 		public function createWinnerBulletin(winner) {
-			var bulletin:winnerBulletin = new winnerBulletin(winner);
+			bulletin = new winnerBulletin(winner);
 			stage.addChild(bulletin);
 		}
 		
@@ -181,34 +212,34 @@
 		//  ========================  Create Ladders and Snakes  =============================
 		
 		public function createLadders() {
-			var  ladder1:ladderAndSnake = new ladderAndSnake(280, 550);
+			ladder1 = new ladderAndSnake(280, 550);
 			ladder1.gotoAndStop(1);
 			ladderAndSnakeDict[22] = 56;
 			stage.addChild(ladder1)
 			
-			var ladder2:ladderAndSnake = new ladderAndSnake(470, 650);
+			ladder2 = new ladderAndSnake(470, 650);
 			ladder2.gotoAndStop(2);
 			ladderAndSnakeDict[12] = 34;
 			stage.addChild(ladder2);
 			
-			var ladder3:ladderAndSnake = new ladderAndSnake(600, 220);
+			ladder3 = new ladderAndSnake(600, 220);
 			ladder3.gotoAndStop(3);
 			ladderAndSnakeDict[67] = 93;
 			stage.addChild(ladder3);
 		}
 		
 		public function createSnakes() {
-			var snake1:ladderAndSnake = new ladderAndSnake(540, 370);
+			snake1 = new ladderAndSnake(540, 370);
 			ladderAndSnakeDict[84]=32;
 			snake1.gotoAndStop(6);
 			stage.addChild(snake1);
 			
-			var snake2:ladderAndSnake = new ladderAndSnake(255, 220);
+			snake2 = new ladderAndSnake(255, 220);
 			ladderAndSnakeDict[96]=77;
 			snake2.gotoAndStop(7);
 			stage.addChild(snake2);
 			
-			var snake3:ladderAndSnake = new ladderAndSnake(300, 680);
+			snake3 = new ladderAndSnake(300, 680);
 			ladderAndSnakeDict[41]=4;
 			snake3.gotoAndStop(8);
 			stage.addChild(snake3);
