@@ -6,6 +6,7 @@
 	
 	import flash.text.*;
 	import flash.utils.Dictionary;
+	import flash.events.MouseEvent;
 	
 	public class main extends MovieClip {
 
@@ -24,6 +25,7 @@
 		public var snake1:ladderAndSnake;
 		public var snake2:ladderAndSnake;
 		public var snake3:ladderAndSnake;
+		public var restartButton:restart;
 		
 		public static var player1:player;
 		public static var player2:player;
@@ -164,11 +166,11 @@
 		public function disableMovement() {
 			target = true;
 			stage.removeEventListener(KeyboardEvent.KEY_DOWN, aDiceTile.rollingDice);
-			stage.addEventListener(KeyboardEvent.KEY_DOWN, cleanGame);
+			//stage.addEventListener(KeyboardEvent.KEY_DOWN, cleanGame);
 			//aDiceTile.removeClickListener();
 		}
 		
-		public function cleanGame(e:KeyboardEvent) {
+		public function cleanGame(e:MouseEvent) {
 			for(var i = 0; i <= 99; i++ ) {
 				stage.removeChild(main.gameBoardTilesVector[i]);
 			}
@@ -186,9 +188,9 @@
 			stage.removeChild(player1);
 			stage.removeChild(player2);
 			//main.gameBoardTilesVector.forEach(removeGameBoard);
-			stage.removeEventListener(KeyboardEvent.KEY_DOWN, cleanGame);
+			//stage.removeEventListener(KeyboardEvent.KEY_DOWN, cleanGame);
 			game();
-				
+
 		}
 		
 		
@@ -197,6 +199,10 @@
 		public function createWinnerBulletin(winner) {
 			bulletin = new winnerBulletin(winner);
 			stage.addChild(bulletin);
+			
+			restartButton = new restart(0, 75);
+			restartButton.addEventListener(MouseEvent.CLICK, cleanGame);
+			bulletin.addChild(restartButton);
 		}
 		
 		
